@@ -1,20 +1,31 @@
-# ENPM 673 - Project 1
-------------------------------------------------------------------------------------------------------------------------------------
-Python Version:
-3.x
+# Overview
 
-Packages Required:
-1. NumPy
-2. Matplotlib
-3. OpenCV
-4. Math
+The project focuses on detecting a custom AR Tag (a form of feducial marker), that is used for obtaining a
+point of reference in the real world, such as in augmented reality applications. The two aspects to using an
+AR Tag: detection and tracking, has been implemented in this project. Following are the 2 stages:
+- Detection: Involves finding the AR Tag from a given frame in the video sequence
+- Tracking: Involves keeping the tag in \view" throughout the sequence and performing image processing
+operations based on the tag's orientation and position (a.k.a. the pose).
+After detection and tracking of AR tags, we perform two tasks, namely superimposing Lena image, and
+placing a virtual cube over the AR tag.
 
-To run the codes:
-1. Run the python files in the current directory which contains all the codes.
-2. The code runs  with the sample video "Tag0.mp4" placed in the Data folder
-3. Place the relative path of the video you want to run in,cap = cv2.VideoCapture('Data/Tag0.mp4')
-4. Open terminal run python3 ARtag.py
- 
-In order to get more information visit the below GitHub link:
-https://github.com/akdhandy/ENPM-673-Perception
-------------------------------------------------------------------------------------------------------------------------------------
+
+<p align="center">
+  <p align="center"><img src="artag.PNG"></p>
+  <br><b>Figure 1 - Detection of AR Tag and placing a cube on top of it</b><br>
+</p>
+
+## Packages Required
+- NumPy
+- Matplotlib
+- OpenCV
+- Math
+
+## To run the codes
+- Run the python files in the current directory which contains all the codes.
+- The code runs  with the sample video "Tag0.mp4" placed in the Data folder
+- Place the relative path of the video you want to run in,cap = cv2.VideoCapture('Data/Tag0.mp4')
+- Open terminal run
+```
+python3 ARtag.py
+``` 
