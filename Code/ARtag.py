@@ -12,6 +12,9 @@ print("Press 1 for AR tag detection")
 print("Press 2 for superimposing Lena on AR tag")
 print("Press 3 for superimposing cube on AR tag")
 print("")
+# Define the codec and create VideoWriter object
+fourcc = cv2.VideoWriter_fourcc(*'DIVX')
+out = cv2.VideoWriter('output.avi',fourcc, 20.0, (640,480))
 task = int(input("Make your selection: "))
 previous_orientation=0
 while(cap.isOpened()):
@@ -25,7 +28,9 @@ while(cap.isOpened()):
     blur = cv2.GaussianBlur(arTag_grayscale, (7,7),0)
     # Threshold the frame to obtain binary image and to clearly visualize the AR tag
     (threshold, binary) = cv2.threshold(blur, 127, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
-    contours, hierarchy = cv2.findContours(binary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    #contours, hierarchy = cv2.findContours(binary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE) ## some versions use this
+    image,contours, hierarchy = cv2.findContours(binary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
         # Filter out unwanted contours
     unwantedContours = []
     for contour, h in enumerate(hierarchy[0]):
@@ -233,7 +238,10 @@ while(cap.isOpened()):
           xpix2=xpix2.astype(int)
           ypix2=ypix2.astype(int)
           arTag[ypix2, xpix2] = lenaImage[ypix1,xpix1]
-          cv2.imshow('superimpose lena', arTag)
+          imS = cv2.resize(arTag, (1920, 1080))
+          cv2.imshow('superimpose lena', arTag	)
+          # cv2.resizeWindow('superimpose lena', 600,600)
+
         #Placing a Virtual Cube over the tag
         #Camera Intrinsic Parameters
         K = np.array([[1406.08415449821,0,0],[2.20679787308599, 1417.99930662800,0],[1014.13643417416, 566.347754321696,1]]) 
@@ -288,6 +296,8 @@ while(cap.isOpened()):
           cv2.line(arTag,(int(x6/z6),int(y6/z6)),(int(x8/z8),int(y8/z8)), (255,0,0), 4)
           cv2.line(arTag,(int(x7/z7),int(y7/z7)),(int(x8/z8),int(y8/z8)), (0,0,100), 4)
           cv2.imshow('superimpose cube', arTag)
+        out.write(arTag)
+
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
