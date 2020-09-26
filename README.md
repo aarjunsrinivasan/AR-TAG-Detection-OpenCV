@@ -1,6 +1,6 @@
 # Overview
 
-The project focuses on detecting a custom AR Tag (a form of feducial marker), that is used for obtaining a
+This project focuses on detecting a custom AR Tag (a form of feducial marker), that is used for obtaining a
 point of reference in the real world, such as in augmented reality applications. The two aspects to using an
 AR Tag: detection and tracking, has been implemented in this project. Following are the 2 stages:
 - Detection: Involves finding the AR Tag from a given frame in the video sequence
